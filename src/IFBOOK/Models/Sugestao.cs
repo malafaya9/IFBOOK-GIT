@@ -14,5 +14,8 @@ namespace IFBOOK.Models
         [Required]
         [MaxLength(500)]
         public string Nome { get; set; }
+
+        //Usuario que enviou a sugestão
+        public ApplicationUser Usuario { get; set; }
     }
 }

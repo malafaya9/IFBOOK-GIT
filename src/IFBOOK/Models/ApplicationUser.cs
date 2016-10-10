@@ -23,5 +23,8 @@ namespace IFBOOK.Models
 
         //Eventos
         public IEnumerable<Evento> Eventos { get; set; }
+        
+        //Sugestões
+        public IEnumerable<Sugestao> Sugestoes { get; set; }
     }
 }
