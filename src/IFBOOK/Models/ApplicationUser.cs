@@ -17,7 +17,8 @@ namespace IFBOOK.Models
         [StringLength(14, MinimumLength = 14, ErrorMessage = "A Matrícula deverá possuir 14 digitos.")]
         public string Matricula { get; set; }
 
-
-
+        //Curso
+        public int CursoID { get; set; }
+        public Curso Curso { get; set; }
     }
 }

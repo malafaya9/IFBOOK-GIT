@@ -14,5 +14,9 @@ namespace IFBOOK.Models
         [Required]
         [MaxLength(30)]
         public string Nome { get; set; }
+
+        //Alunos membros do curso
+        public IEnumerable<ApplicationUser> Alunos { get; set; }
+
     }
 }
