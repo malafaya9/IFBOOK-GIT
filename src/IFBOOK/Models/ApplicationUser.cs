@@ -20,5 +20,8 @@ namespace IFBOOK.Models
         //Curso
         public int CursoID { get; set; }
         public Curso Curso { get; set; }
+
+        //Eventos
+        public IEnumerable<Evento> Eventos { get; set; }
     }
 }

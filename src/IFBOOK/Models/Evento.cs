@@ -20,5 +20,8 @@ namespace IFBOOK.Models
         public DateTime Data { get; set; }
         [Required]
         public Boolean Status { get; set; }
+
+        public int UsuarioID { get; set; }
+        public ApplicationUser Usuario { get; set; }
     }
 }
