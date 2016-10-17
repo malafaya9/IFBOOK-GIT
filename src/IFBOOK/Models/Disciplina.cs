@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IFBOOK.Models
 {
-    public class Professor
+    public class Disciplina
     {
         [Key]
         public int ID { get; set; }
