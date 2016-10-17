@@ -11,6 +11,8 @@ namespace IFBOOK.Models
     {
         [Key]
         public int ID { get; set; }
+        public Resposta Resposta { get; set; }
+
         [Required]
         [MaxLength(500)]
         public string Descricao { get; set; }
