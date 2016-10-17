@@ -10,6 +10,7 @@ namespace IFBOOK.Models
     {
         [Key]
         public int ID { get; set; }
+        public IEnumerable<ProfessorDisciplina> ProfessorDisciplina { get; set; }
         [Required]
         [MaxLength(100)]
         public int Nome { get; set; }
