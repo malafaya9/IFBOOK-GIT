@@ -16,5 +16,7 @@ namespace IFBOOK.Models
         public int Nome { get; set; }
         [Required]
         public float Nota { get; set; }
+
+        public IEnumerable<Avaliacao> Avaliacoes { get; set; }
     }
 }
