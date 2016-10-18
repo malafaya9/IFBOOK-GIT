@@ -21,7 +21,7 @@ namespace IFBOOK.Models
         [Required]
         public Boolean Status { get; set; }
 
-        public int UsuarioID { get; set; }
+        public string UsuarioID { get; set; }
         public ApplicationUser Usuario { get; set; }
     }
 }

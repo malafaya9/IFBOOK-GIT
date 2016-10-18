@@ -21,7 +21,7 @@ namespace IFBOOK.Models
         [DataType(DataType.DateTime)]
         public DateTime Data { get; set; }
 
-        public int UsuarioID { get; set; }
+        public string UsuarioID { get; set; }
         public ApplicationUser Usuario { get; set; }
     }
 }
