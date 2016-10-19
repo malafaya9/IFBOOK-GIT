@@ -2,7 +2,6 @@
   "userSecretsId": "aspnet-IFBOOK-d8acc99b-4ff7-4cab-8c22-48b19886bc31",
 
   "dependencies": {
-    "MSBuild.Microsoft.VisualStudio.Web.targets": "14.0.0.3",
     "BundlerMinifier.Core": "2.2.281",
     "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0",
