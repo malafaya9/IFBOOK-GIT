@@ -28,5 +28,7 @@ namespace IFBOOK.Models
         public IEnumerable<Sugestao> Sugestoes { get; set; }
 
         public IEnumerable<Publicacao> Publicacoes { get; set; }
+
+        public IEnumerable<Avaliacao> Avaliacoes { get; set; }
     }
 }
