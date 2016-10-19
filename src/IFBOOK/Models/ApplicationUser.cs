@@ -22,7 +22,7 @@ namespace IFBOOK.Models
         public Curso Curso { get; set; }
 
         //Eventos
-        public IEnumerable<Evento> Eventos { get; set; }
+        public ICollection<Evento> Eventos { get; set; }
         
         //Sugestões
         public IEnumerable<Sugestao> Sugestoes { get; set; }

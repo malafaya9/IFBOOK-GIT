@@ -7,25 +7,31 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IFBOOK.Data;
 using IFBOOK.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IFBOOK.Controllers
 {
-    public class CursoController : Controller
+    [Authorize]
+    public class EventoController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public CursoController(ApplicationDbContext context)
+        public EventoController(ApplicationDbContext context, UserManager<ApplicationUser> userManager )
         {
-            _context = context;    
+            _context = context;
+            _userManager = userManager;
         }
 
-        // GET: Curso
+        // GET: Evento
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Cursos.OrderBy(c => c.Nome).ToListAsync());
+            var applicationDbContext = _context.Eventos.Include(e => e.Usuario);
+            return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Curso/Details/5
+        // GET: Evento/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,38 +39,40 @@ namespace IFBOOK.Controllers
                 return NotFound();
             }
 
-            var curso = await _context.Cursos.SingleOrDefaultAsync(m => m.ID == id);
-            if (curso == null)
+            var evento = await _context.Eventos.SingleOrDefaultAsync(m => m.ID == id);
+            if (evento == null)
             {
                 return NotFound();
             }
 
-            return View(curso);
+            return View(evento);
         }
 
-        // GET: Curso/Create
+        // GET: Evento/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Curso/Create
+        // POST: Evento/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Nome")] Curso curso)
+        public async Task<IActionResult> Create([Bind("ID,Data,Nome,Status,UsuarioID")] Evento evento)
         {
+            evento.UsuarioID = _userManager.GetUserId(HttpContext.User);
+            evento.Status = false;
             if (ModelState.IsValid)
             {
-                _context.Add(curso);
+                _context.Add(evento);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(curso);
+            return View(evento);
         }
 
-        // GET: Curso/Edit/5
+        // GET: Evento/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +80,22 @@ namespace IFBOOK.Controllers
                 return NotFound();
             }
 
-            var curso = await _context.Cursos.SingleOrDefaultAsync(m => m.ID == id);
-            if (curso == null)
+            var evento = await _context.Eventos.Include(e => e.Usuario).SingleOrDefaultAsync(m => m.ID == id);
+            if (evento == null)
             {
                 return NotFound();
             }
-            return View(curso);
+            return View(evento);
         }
 
-        // POST: Curso/Edit/5
+        // POST: Evento/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Nome")] Curso curso)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Data,Nome,Status,UsuarioID")] Evento evento)
         {
-            if (id != curso.ID)
+            if (id != evento.ID)
             {
                 return NotFound();
             }
@@ -96,12 +104,12 @@ namespace IFBOOK.Controllers
             {
                 try
                 {
-                    _context.Update(curso);
+                    _context.Update(evento);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CursoExists(curso.ID))
+                    if (!EventoExists(evento.ID))
                     {
                         return NotFound();
                     }
@@ -112,10 +120,10 @@ namespace IFBOOK.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            return View(curso);
+            return View(evento);
         }
 
-        // GET: Curso/Delete/5
+        // GET: Evento/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,29 +131,29 @@ namespace IFBOOK.Controllers
                 return NotFound();
             }
 
-            var curso = await _context.Cursos.SingleOrDefaultAsync(m => m.ID == id);
-            if (curso == null)
+            var evento = await _context.Eventos.SingleOrDefaultAsync(m => m.ID == id);
+            if (evento == null)
             {
                 return NotFound();
             }
 
-            return View(curso);
+            return View(evento);
         }
 
-        // POST: Curso/Delete/5
+        // POST: Evento/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var curso = await _context.Cursos.SingleOrDefaultAsync(m => m.ID == id);
-            _context.Cursos.Remove(curso);
+            var evento = await _context.Eventos.SingleOrDefaultAsync(m => m.ID == id);
+            _context.Eventos.Remove(evento);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
-        private bool CursoExists(int id)
+        private bool EventoExists(int id)
         {
-            return _context.Cursos.Any(e => e.ID == id);
+            return _context.Eventos.Any(e => e.ID == id);
         }
     }
 }

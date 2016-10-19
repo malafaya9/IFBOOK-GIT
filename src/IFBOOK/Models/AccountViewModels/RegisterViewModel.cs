@@ -8,32 +8,35 @@ namespace IFBOOK.Models.AccountViewModels
 {
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage ="O campo não pode ser vazio")]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessage = "O campo não pode ser vazio")]
+        [StringLength(100, ErrorMessage = "A {0} deve ter no mínimo {2} e no máximo {1} caracteres de comprimento.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Senha")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirmar Senha")]
-        [Compare("Senha", ErrorMessage = "Os campos não possuem o mesmo valor.")]
+        [Compare("Password", ErrorMessage = "Os campos não possuem o mesmo valor.")]
         public string ConfirmPassword { get; set; }
 
-        [Required]
-        [StringLength(14, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 14)]
+        [Required(ErrorMessage = "O campo não pode ser vazio")]
+        [StringLength(14, ErrorMessage = "A {0} deve ter no mínimo {2} e no máximo {1} caracteres de comprimento.", MinimumLength = 14)]
         [DataType(DataType.Text)]
         [Display(Name = "Matrícula")]
         public string Matricula { get; set; }
 
-        [Required]
-        [StringLength(14, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessage = "O campo não pode ser vazio")]
+        [StringLength(100, ErrorMessage = "A {0} deve ter no mínimo {2} e no máximo {1} caracteres de comprimento.", MinimumLength = 6)]
         [DataType(DataType.Text)]
         [Display(Name = "Nome")]
         public string Nome { get; set; }
+
+        [Display(Name = "Curso")]
+        public int Curso { get; set; }
     }
 }
