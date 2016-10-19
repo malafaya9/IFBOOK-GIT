@@ -22,7 +22,7 @@ namespace IFBOOK.Controllers
         // GET: Curso
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Cursos.OrderBy(c => c.Nome).ToListAsync());
+            return View(await _context.Cursos.ToListAsync());
         }
 
         // GET: Curso/Details/5

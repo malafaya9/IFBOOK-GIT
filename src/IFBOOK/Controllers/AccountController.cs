@@ -11,7 +11,6 @@ using Microsoft.Extensions.Logging;
 using IFBOOK.Models;
 using IFBOOK.Models.AccountViewModels;
 using IFBOOK.Services;
-using IFBOOK.Data;
 
 namespace IFBOOK.Controllers
 {
@@ -23,22 +22,19 @@ namespace IFBOOK.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
-        private readonly ApplicationDbContext _context;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ISmsSender smsSender,
-            ILoggerFactory loggerFactory,
-            ApplicationDbContext context)
+            ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
-            _context = context;
         }
 
         //
@@ -96,7 +92,6 @@ namespace IFBOOK.Controllers
         public IActionResult Register(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
-            ViewBag.Cursos = new SelectList(_context.Cursos, "ID", "Nome");
             return View();
         }
 
@@ -110,7 +105,7 @@ namespace IFBOOK.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Nome = model.Nome, Matricula = model.Matricula, CursoID = model.Curso };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -128,7 +123,6 @@ namespace IFBOOK.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            ViewBag.Cursos = new SelectList(_context.Cursos, "ID", "Nome");
             return View(model);
         }
 
