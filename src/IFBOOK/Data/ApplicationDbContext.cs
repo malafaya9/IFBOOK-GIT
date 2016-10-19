@@ -36,6 +36,7 @@ namespace IFBOOK.Data
             builder.Entity<Sugestao>().HasOne(s => s.Usuario).WithMany(u => u.Sugestoes).HasForeignKey(s => s.UsuarioID).HasPrincipalKey(u => u.Id);
 
             builder.Entity<Evento>().HasOne(e => e.Usuario).WithMany(u => u.Eventos).HasForeignKey(e => e.UsuarioID).HasPrincipalKey(u => u.Id);
+            builder.Entity<Evento>().Property<bool>(e => e.Status).ForSqlServerHasDefaultValue(false);
 
             builder.Entity<Pergunta>().HasOne(p => p.Curso).WithMany(c => c.Perguntas).HasForeignKey(p => p.CursoID).HasPrincipalKey(c => c.ID);
             builder.Entity<Pergunta>().HasOne(p => p.Usuario).WithMany(u => u.Perguntas).HasForeignKey(p => p.UsuarioID).HasPrincipalKey(u => u.Id);

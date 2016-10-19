@@ -18,7 +18,6 @@ namespace IFBOOK.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [DataType(DataType.DateTime)]
         public DateTime Data { get; set; }
-        [Required]
         public Boolean Status { get; set; }
 
         public string UsuarioID { get; set; }
