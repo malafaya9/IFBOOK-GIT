@@ -18,5 +18,6 @@ namespace IFBOOK.Models
         //Alunos membros do curso
         public IEnumerable<ApplicationUser> Alunos { get; set; }
 
+        public IEnumerable<Pergunta> Perguntas { get; set; }
     }
 }

@@ -14,5 +14,7 @@ namespace IFBOOK.Models
         [Required]
         [MaxLength(20)]
         public string Descricao { get; set; }
+
+        public IEnumerable<Avaliacao> Avaliacoes { get; set; }
     }
 }

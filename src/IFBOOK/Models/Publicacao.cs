@@ -22,5 +22,7 @@ namespace IFBOOK.Models
 
         public string UsuarioID { get; set; }
         public ApplicationUser Usuario { get; set; }
+
+        public IEnumerable<Comentario> Comentarios { get; set; }
     }
 }

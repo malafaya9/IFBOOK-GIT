@@ -30,5 +30,12 @@ namespace IFBOOK.Models
         public IEnumerable<Publicacao> Publicacoes { get; set; }
 
         public IEnumerable<Avaliacao> Avaliacoes { get; set; }
+
+        public IEnumerable<Pergunta> Perguntas { get; set; }
+
+        public IEnumerable<Resposta> Respostas { get; set; }
+
+        public IEnumerable<Comentario> Comentarios { get; set; }
+
     }
 }
