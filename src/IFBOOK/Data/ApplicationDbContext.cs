@@ -49,7 +49,7 @@ namespace IFBOOK.Data
             builder.Entity<Comentario>().HasOne(c => c.Usuario).WithMany(u => u.Comentarios).HasForeignKey(c => c.UsuarioID).HasPrincipalKey(u => u.Id);
             builder.Entity<Comentario>().HasOne(c => c.Publicacao).WithMany(p => p.Comentarios).HasForeignKey(c => c.PublicacaoID).HasPrincipalKey(p => p.ID);
 
-            builder.Entity<ProfessorDisciplina>().HasAlternateKey(pd => new { pd.ProfessorID, pd.DisciplinaID });
+            builder.Entity<ProfessorDisciplina>().HasKey(pd => new { pd.ProfessorID, pd.DisciplinaID });
             builder.Entity<ProfessorDisciplina>().HasOne(pd => pd.Professor).WithMany(p => p.ProfessorDisciplina).HasForeignKey(pd => pd.ProfessorID).HasPrincipalKey(p => p.ID);
             builder.Entity<ProfessorDisciplina>().HasOne(pd => pd.Disciplina).WithMany(d => d.ProfessorDisciplina).HasForeignKey(pd => pd.DisciplinaID).HasPrincipalKey(d => d.ID);
 
