@@ -16,8 +16,8 @@ namespace IFBOOK.Models
         public string Descricao { get; set; }
         [Required]
         public int Nota { get; set; }
-        [Required]
         [Column(TypeName = "datetime2")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [DataType(DataType.DateTime)]
         public DateTime Data { get; set; }
 

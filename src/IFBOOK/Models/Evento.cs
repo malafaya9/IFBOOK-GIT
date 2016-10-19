@@ -14,8 +14,8 @@ namespace IFBOOK.Models
         [Required]
         [MaxLength(60)]
         public string Nome { get; set; }
-        [Required]
         [Column(TypeName = "datetime2")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [DataType(DataType.DateTime)]
         public DateTime Data { get; set; }
         [Required]
