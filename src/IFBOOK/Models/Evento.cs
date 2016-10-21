@@ -21,8 +21,9 @@ namespace IFBOOK.Models
         [DataType(DataType.DateTime)]
         public DateTime Data { get; set; }
         public Boolean Status { get; set; }
-
+        [Display(Name = "Usuário")]
         public string UsuarioID { get; set; }
         public ApplicationUser Usuario { get; set; }
+        public string GetStatus => (Status ? "Aprovado" : "Analisando");
     }
 }

@@ -39,7 +39,7 @@ namespace IFBOOK.Controllers
                 return NotFound();
             }
 
-            var evento = await _context.Eventos.SingleOrDefaultAsync(m => m.ID == id);
+            var evento = await _context.Eventos.Include(e => e.Usuario).SingleOrDefaultAsync(m => m.ID == id);
             if (evento == null)
             {
                 return NotFound();

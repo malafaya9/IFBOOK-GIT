@@ -20,7 +20,7 @@ namespace IFBOOK.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [DataType(DataType.DateTime)]
         public DateTime Data { get; set; }
-
+        [Display(Name ="Usuário")]
         public string UsuarioID { get; set; }
         public ApplicationUser Usuario { get; set; }
 
