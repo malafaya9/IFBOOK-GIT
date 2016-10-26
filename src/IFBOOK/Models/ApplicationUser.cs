@@ -27,7 +27,7 @@ namespace IFBOOK.Models
         //Sugestões
         public IEnumerable<Sugestao> Sugestoes { get; set; }
 
-        public IEnumerable<Publicacao> Publicacoes { get; set; }
+        public ICollection<Publicacao> Publicacoes { get; set; }
 
         public IEnumerable<Avaliacao> Avaliacoes { get; set; }
 
@@ -35,7 +35,7 @@ namespace IFBOOK.Models
 
         public IEnumerable<Resposta> Respostas { get; set; }
 
-        public IEnumerable<Comentario> Comentarios { get; set; }
+        public ICollection<Comentario> Comentarios { get; set; }
 
     }
 }

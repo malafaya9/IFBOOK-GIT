@@ -12,8 +12,8 @@ namespace IFBOOK.Models
         public int ID { get; set; }
 
         [Required(ErrorMessage = "O campo não pode ser vazio")]
-        [StringLength(30, ErrorMessage = "O {0} deve ter no mínimo {2} e no máximo {1} caracteres de comprimento.", MinimumLength = 1)]
-        [MaxLength(30)]
+        [StringLength(60, ErrorMessage = "O {0} deve ter no mínimo {2} e no máximo {1} caracteres de comprimento.", MinimumLength = 1)]
+        [MaxLength(60)]
         public string Nome { get; set; }
 
         //Alunos membros do curso
