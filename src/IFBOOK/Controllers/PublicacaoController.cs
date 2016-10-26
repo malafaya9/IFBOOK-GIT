@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using IFBOOK.Data;
 using IFBOOK.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IFBOOK.Controllers
 {
+    [Authorize]
     public class PublicacaoController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -91,9 +93,8 @@ namespace IFBOOK.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Descricao,UsuarioID")] Publicacao publicacao)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Descricao,UsuarioID,Data")] Publicacao publicacao)
         {
-            publicacao.UsuarioID = _userManager.GetUserId(HttpContext.User);
             if (id != publicacao.ID)
             {
                 return NotFound();
