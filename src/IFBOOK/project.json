@@ -58,7 +58,8 @@
   },
 
   "frameworks": {
-    "net452": { }
+    "net46": {},
+    "net452": {}
   },
 
   "buildOptions": {

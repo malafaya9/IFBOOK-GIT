@@ -27,7 +27,7 @@ namespace IFBOOK.Controllers
         // GET: Publicacao
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Publicacoes.Include(p => p.Usuario).Include(p=>p.Comentarios);
+            var applicationDbContext = _context.Publicacoes.Include(p => p.Usuario).Include(p=>p.Comentarios).OrderByDescending(p => p.Data);
             return View(await applicationDbContext.ToListAsync());
         }
 
