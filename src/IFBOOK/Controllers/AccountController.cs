@@ -80,7 +80,7 @@ namespace IFBOOK.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Login Inválido.");
                     return View(model);
                 }
             }
@@ -140,7 +140,7 @@ namespace IFBOOK.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation(4, "User logged out.");
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(PublicacaoController.Index), "Publicacao");
         }
 
         //
@@ -465,7 +465,7 @@ namespace IFBOOK.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                return RedirectToAction(nameof(PublicacaoController.Index), "Publicacao");
             }
         }
 

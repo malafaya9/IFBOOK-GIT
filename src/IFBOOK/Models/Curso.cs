@@ -17,7 +17,7 @@ namespace IFBOOK.Models
         public string Nome { get; set; }
 
         //Alunos membros do curso
-        public IEnumerable<ApplicationUser> Alunos { get; set; }
+        public ICollection<ApplicationUser> Alunos { get; set; }
 
         public IEnumerable<Pergunta> Perguntas { get; set; }
     }
