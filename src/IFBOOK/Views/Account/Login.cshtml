@@ -6,7 +6,7 @@
 
 @{
     Layout = "~/Views/Shared/_NonLoggedLayout.cshtml";
-    ViewData["Title"] = "Entrar";
+    ViewData["Title"] = "Login";
 }
 <div class="row centered">
     <div class="col-md-12">
@@ -31,9 +31,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
+                    <div class="col-md-offset-4 col-md-10">
                         <div class="checkbox">
-                            <label asp-for="RememberMe">
+                            <label asp-for="RememberMe" class="remember-me">
                                 <input asp-for="RememberMe" />
                                 @Html.DisplayNameFor(m => m.RememberMe)
                             </label>
@@ -41,12 +41,12 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <button type="submit" class="btn btn-success">Entrar</button>
+                    <div class="col-md-offset-3 col-md-10">
+                        <button type="submit" class="btn btn-success button-entrar">Entrar</button>
                     </div>
                 </div>
                 <p>
-                    <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Cadastrar-se como um novo usuário?</a>
+                    <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" class="cadastre-se">Cadastrar-se como um novo usuário?</a>
                 </p>
             </form>
         </section>

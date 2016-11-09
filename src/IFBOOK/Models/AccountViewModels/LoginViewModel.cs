@@ -9,12 +9,12 @@ namespace IFBOOK.Models.AccountViewModels
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "Usuário:")]
         [EmailAddress]
         public string Email { get; set; }
 
         [Required]
-        [Display(Name = "Senha")]
+        [Display(Name = "Senha:")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

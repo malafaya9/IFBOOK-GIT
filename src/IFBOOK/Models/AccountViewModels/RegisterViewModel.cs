@@ -10,33 +10,33 @@ namespace IFBOOK.Models.AccountViewModels
     {
         [Required(ErrorMessage ="O campo não pode ser vazio")]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Usuário:")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "O campo não pode ser vazio")]
         [StringLength(100, ErrorMessage = "A {0} deve ter no mínimo {2} e no máximo {1} caracteres de comprimento.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Senha")]
+        [Display(Name = "Senha:")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirmar Senha")]
+        [Display(Name = "Confirme:")]
         [Compare("Password", ErrorMessage = "Os campos não possuem o mesmo valor.")]
         public string ConfirmPassword { get; set; }
 
         [Required(ErrorMessage = "O campo não pode ser vazio")]
         [StringLength(14, ErrorMessage = "A {0} deve ter no mínimo {2} e no máximo {1} caracteres de comprimento.", MinimumLength = 14)]
         [DataType(DataType.Text)]
-        [Display(Name = "Matrícula")]
+        [Display(Name = "Matrícula:")]
         public string Matricula { get; set; }
 
         [Required(ErrorMessage = "O campo não pode ser vazio")]
         [StringLength(100, ErrorMessage = "A {0} deve ter no mínimo {2} e no máximo {1} caracteres de comprimento.", MinimumLength = 6)]
         [DataType(DataType.Text)]
-        [Display(Name = "Nome")]
+        [Display(Name = "Nome:")]
         public string Nome { get; set; }
 
-        [Display(Name = "Curso")]
+        [Display(Name = "Curso:")]
         public int Curso { get; set; }
     }
 }
