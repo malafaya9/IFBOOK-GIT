@@ -12,6 +12,7 @@ using IFBOOK.Models;
 using IFBOOK.Models.AccountViewModels;
 using IFBOOK.Services;
 using IFBOOK.Data;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace IFBOOK.Controllers
 {
@@ -24,6 +25,7 @@ namespace IFBOOK.Controllers
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
         private readonly ApplicationDbContext _context;
+        private RoleManager<IdentityRole> _roleManager;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -31,7 +33,8 @@ namespace IFBOOK.Controllers
             IEmailSender emailSender,
             ISmsSender smsSender,
             ILoggerFactory loggerFactory,
-            ApplicationDbContext context)
+            ApplicationDbContext context,
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -39,6 +42,19 @@ namespace IFBOOK.Controllers
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
             _context = context;
+            _roleManager = roleManager;
+        }
+
+        public async Task SeedRoles()
+        {
+            var roles = new string[] { "Administrador", "Veterano" };
+            foreach (var role in roles)
+            {
+                if (!_roleManager.RoleExistsAsync(role).Result)
+                {
+                    await _roleManager.CreateAsync(new IdentityRole(role));
+                }
+            }
         }
 
         //
@@ -108,6 +124,7 @@ namespace IFBOOK.Controllers
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
+            SeedRoles().Wait();
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Nome = model.Nome, Matricula = model.Matricula, CursoID = model.Curso };
@@ -126,7 +143,6 @@ namespace IFBOOK.Controllers
                 }
                 AddErrors(result);
             }
-
             // If we got this far, something failed, redisplay form
             ViewBag.Cursos = new SelectList(_context.Cursos, "ID", "Nome");
             return View(model);

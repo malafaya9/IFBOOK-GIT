@@ -42,13 +42,17 @@
                         <li><a href="javascript:;">Professores</a></li>
                         <li><a href="javascript:;">Equipe</a></li>
                         <li><a href="javascript:;">CalourAsk</a></li>
-                        <li><a href="javascript:;">Cadastre um professor</a></li>
-                        <li><a href="javascript:;">Cadastre uma matéria</a></li>
-                        <li><a asp-controller="Curso" asp-action="Create">Cadastre um Curso</a></li>
                         <li><a href="javascript:;">Matérias</a></li>
                         <li><a  asp-controller="Evento" asp-action="Index">Calendários de eventos</a></li>
                         <li><a asp-controller="Manage" asp-action="Index">Configurações</a></li>
                         <li><a href="javascript:;">Sugestões</a></li>
+                        @if (User.IsInRole("Administrador"))
+                        {
+                        <li class="nav-divider"></li>
+                        <li><a href="javascript:;">Cadastre um professor</a></li>
+                        <li><a href="javascript:;">Cadastre uma matéria</a></li>
+                        <li><a asp-controller="Curso" asp-action="Create">Cadastre um Curso</a></li>
+                        }
                         @*<li class="nav-divider"></li>
                         <li><a asp-controller="Account" asp-action="LogOff"><i class="glyphicon glyphicon-off"></i> Sign in</a></li>*@
                     </ul>
