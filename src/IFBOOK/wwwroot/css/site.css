@@ -1,4 +1,9 @@
-﻿body {
+﻿@font-face {
+    font-family: Bebas;
+    src: url(../fonts/BebasKai-Regular.otf);
+}
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
     background-color: #ddd;
@@ -135,7 +140,7 @@ textarea {
 h2{
     color: #02884d;
     font-size: 55pt;
-    font-family: 'Bebas Kai';
+    font-family: Bebas;
     text-align: center;
     margin-top: 37px;
 }
@@ -143,7 +148,7 @@ h2{
 label.control-label{
     color: #02884d;
     font-size: 19pt;
-    font-family: 'Bebas Kai';
+    font-family: Bebas;
 }
 
 input.form-control{
@@ -157,7 +162,7 @@ input.form-control{
     height: 52px;
     width: 170px;
     font-size: 23pt;
-    font-family: 'Bebas Kai';
+    font-family: Bebas;
     margin-left: 10px;
     color: white;
 }
@@ -165,7 +170,7 @@ input.form-control{
 .remember-me{
     color: #02884d;
     font-size: 13pt;
-    font-family: 'Bebas Kai';
+    font-family: Bebas;
     margin-left: 5px;
 }
 
