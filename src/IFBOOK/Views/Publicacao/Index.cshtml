@@ -27,22 +27,7 @@
         </div>
     </form>
 </div>
-@*<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Data)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Descricao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UsuarioID)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>*@
+<div id="publicacoes">
 @foreach (var item in Model) {
         <dl>
             <dt>
@@ -61,3 +46,4 @@
             </dd>
         </dl>
 }
+</div>

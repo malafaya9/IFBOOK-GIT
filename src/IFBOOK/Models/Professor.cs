@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,8 +15,8 @@ namespace IFBOOK.Models
         [Required]
         [MaxLength(100)]
         public int Nome { get; set; }
-        [Required]
-        public float Nota { get; set; }
+        [NotMapped]
+        public float Nota => (float)Avaliacoes.Average(a => a.Nota);
 
         public IEnumerable<Avaliacao> Avaliacoes { get; set; }
     }

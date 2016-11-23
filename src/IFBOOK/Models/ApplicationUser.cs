@@ -25,7 +25,7 @@ namespace IFBOOK.Models
         public ICollection<Evento> Eventos { get; set; }
         
         //Sugestões
-        public IEnumerable<Sugestao> Sugestoes { get; set; }
+        public ICollection<Sugestao> Sugestoes { get; set; }
 
         public ICollection<Publicacao> Publicacoes { get; set; }
 
