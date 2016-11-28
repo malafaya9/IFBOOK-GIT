@@ -52,13 +52,10 @@ namespace IFBOOK.Controllers
         // GET: Sugestao/Create
         public IActionResult Create()
         {
-            //ViewData["UsuarioID"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
         // POST: Sugestao/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Descricao,UsuarioID")] Sugestao sugestao)
@@ -70,61 +67,6 @@ namespace IFBOOK.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index","Publicacao");
             }
-            //ViewData["UsuarioID"] = new SelectList(_context.Users, "Id", "Id", sugestao.UsuarioID);
-            return View(sugestao);
-        }
-
-        // GET: Sugestao/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var sugestao = await _context.Sugestoes.SingleOrDefaultAsync(m => m.ID == id);
-            if (sugestao == null)
-            {
-                return NotFound();
-            }
-            ViewData["UsuarioID"] = new SelectList(_context.Users, "Id", "Id", sugestao.UsuarioID);
-            return View(sugestao);
-        }
-
-        // POST: Sugestao/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "Administrador")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Descricao,UsuarioID")] Sugestao sugestao)
-        {
-            if (id != sugestao.ID)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(sugestao);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SugestaoExists(sugestao.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction("Index");
-            }
-            ViewData["UsuarioID"] = new SelectList(_context.Users, "Id", "Id", sugestao.UsuarioID);
             return View(sugestao);
         }
 
