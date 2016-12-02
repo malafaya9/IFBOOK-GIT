@@ -1,16 +1,16 @@
-@model IEnumerable<IFBOOK.Models.Sugestao>
+@model IEnumerable<IFBOOK.Models.Disciplina>
 
 @{
-    ViewData["Title"] = "Sugestões";
+    ViewData["Title"] = "Disciplinas";
 }
 
-<h2>Sugestões</h2>
+<h2>Disciplina</h2>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Descricao)
+                @Html.DisplayNameFor(model => model.Nome)
             </th>
             <th></th>
         </tr>
@@ -19,12 +19,15 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Descricao)
+                @Html.DisplayFor(modelItem => item.Nome)
             </td>
+            @if (User.IsInRole("Administrador")) {
             <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Editar</a> |
                 <a asp-action="Details" asp-route-id="@item.ID">Detalhes</a> |
                 <a asp-action="Delete" asp-route-id="@item.ID">Excluir</a>
             </td>
+            }
         </tr>
 }
     </tbody>

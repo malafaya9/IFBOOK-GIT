@@ -1,0 +1,49 @@
+@model IEnumerable<IFBOOK.Models.ApplicationUser>
+@inject UserManager<ApplicationUser> userManager
+
+@{
+    ViewData["Title"] = "Funcoes Administrativas";
+}
+
+<h2>FuncoesAdministrativas</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Matricula)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>Adiministrador</th>
+            <th>Veterano</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Matricula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @{ bool test = userManager.IsInRoleAsync(item, "Administrador").Result; }
+                <a asp-controller="Account" asp-action="AddRemoveRoles" asp-route-id="@item.Id" asp-route-role="Administrador">@(test?"Desativar":"Ativar")</a>
+            </td>
+            <td>
+                @{ test = userManager.IsInRoleAsync(item, "Veterano").Result; }
+                <a asp-controller="Account" asp-action="AddRemoveRoles" asp-route-id="@item.Id" asp-route-role="Veterano">@(test ? "Desativar" : "Ativar")</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

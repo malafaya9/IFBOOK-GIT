@@ -57,6 +57,36 @@ namespace IFBOOK.Controllers
             }
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Administrador")]
+        public IActionResult FuncoesAdministrativas()
+        {
+#pragma warning disable CS1702 // Assuming assembly reference matches identity
+            return View(_context.Users.ToList());
+#pragma warning restore CS1702 // Assuming assembly reference matches identity
+        }
+        [Authorize(Roles = "Administrador")]
+        public async Task<IActionResult> AddRemoveRoles(string id, string role)
+        {
+            if (User.IsInRole("Administrador"))
+            {
+#pragma warning disable CS1702 // Assuming assembly reference matches identity
+                var user = _context.Users.Single(u => u.Id == id);
+#pragma warning restore CS1702 // Assuming assembly reference matches identity
+                if (_userManager.IsInRoleAsync(user, role).Result)
+                {
+                    await _userManager.RemoveFromRoleAsync(user, role);
+                }
+                else
+                {
+                    await _userManager.AddToRoleAsync(user, role);
+                }
+            }
+            else return RedirectToLocal("Publicacao/Index");
+            return RedirectToAction("FuncoesAdministrativas");
+
+        }
+
         //
         // GET: /Account/Login
         [HttpGet]

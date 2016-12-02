@@ -39,18 +39,20 @@
                 <nav class="nav-sidebar" style="background-color:black;height:100%;margin-left: -15px;">
                     <ul class="nav" id="menu-lateral">
                         <li class="active"><a asp-controller="Publicacao" asp-action="Index">Home</a></li>
-                        <li><a href="javascript:;">Professores</a></li>
+                        <li><a asp-controller="Professor">Professores</a></li>
                         <li><a href="javascript:;">Equipe</a></li>
                         <li><a href="javascript:;">CalourAsk</a></li>
-                        <li><a href="javascript:;">Matérias</a></li>
+                        <li><a asp-controller="Disciplina">Disciplinas</a></li>
                         <li><a  asp-controller="Evento" asp-action="Index">Calendários de eventos</a></li>
                         <li><a asp-controller="Manage" asp-action="Index">Configurações</a></li>
                         <li><a  asp-controller="Sugestao" asp-action="Create">Enviar Sugestão</a></li>
                         @if (User.IsInRole("Administrador"))
                         {
                         <li class="nav-divider"></li>
-                        <li><a href="javascript:;">Cadastre um professor</a></li>
-                        <li><a href="javascript:;">Cadastre uma matéria</a></li>
+                        <li><a asp-controller="Professor" asp-action="Create">Cadastre um professor</a></li>
+                        <li><a asp-controller="Disciplina" asp-action="Create">Cadastre uma disciplina</a></li>
+                        <li><a asp-controller="Relacao">Relacões entre Professores e Disciplinas</a></li>
+                        <li><a asp-controller="Account" asp-action="FuncoesAdministrativas">Usuarios</a></li>
                         <li><a asp-controller="Curso" asp-action="Create">Cadastre um Curso</a></li>
                         <li><a asp-controller="Sugestao" asp-action="Index">Listar Sugestões</a></li>
                         }
