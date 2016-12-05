@@ -10,10 +10,10 @@
     ViewData["Title"] = "Feed";
 }
 
-<h2>Inicio - Feed (Manutenção)</h2>
 <div>
-    <form asp-action="Create">
-        <div class="form-horizontal col-md-12">
+    <form asp-action="Create" asp-controller="Publicacao">
+        <div class="form-horizontal col-md-12" style="margin-top:25px">
+            @(!string.IsNullOrEmpty(ViewBag.PublicacaoError)?$"<span class='alert alert-danger'>{ViewBag.PublicacaoError}</span>":"")
             <textarea name="Descricao" class="form-control" style="min-width:60%;height:100px;margin:auto;" placeholder="O que você está pensando?" required></textarea>
             <div class="form-group">
                 <div class="col-md-offset-8 col-md-4" style="margin-top:10px;">
@@ -24,22 +24,33 @@
     </form>
 </div>
 <div id="publicacoes">
-@foreach (var item in Model) {
-        <dl>
-            <dt>
-                @Html.DisplayFor(modelItem => item.Usuario.Nome)<br>
-                @Html.DisplayFor(modelItem => item.Data)
-            </dt>
-            <dd>
-                @Html.DisplayFor(modelItem => item.Descricao)
-            </dd>
-            <dd>
-                @if ((UserManager.GetUserId(User) == item.UsuarioID)||User.IsInRole("Administrador")) {
-                    <a asp-action="Edit" asp-route-id="@item.ID"><span class="glyphicon glyphicon-edit" style="color:#02884d"></span></a>
-                    <a asp-action = "Details" asp-route-id = "@item.ID" ><span class="glyphicon glyphicon-search" style="color:#02884d"></span></a>
-                    <a asp-action="Delete" asp-route-id="@item.ID"><span class="glyphicon glyphicon-remove" style="color:#02884d"></span></a>
-                 }
-            </dd>
-        </dl>
+@foreach (var item in Model) { 
+    
+    <div class="marcosAdriano col-md-12">
+        <div class="marcosAdriano1 col-md-2">
+            <img src="~/images/default-avatar.png" class="img-post" style="width:81px" />
+        </div>
+        <div class="marcosAdriano2 col-md-10">
+            <span class="name-post">@Html.DisplayFor(modelItem => item.Usuario.Nome)</span>
+            <span class="date-post">@Html.DisplayFor(modelItem => item.Data)</span><br />
+            <span class="post">@Html.DisplayFor(modelItem => item.Descricao)</span><br /><br />
+            @if ((UserManager.GetUserId(User) == item.UsuarioID) || User.IsInRole("Administrador"))
+            {
+                <a asp-action="Edit" asp-route-id="@item.ID"><span class="glyphicon glyphicon-edit" style="color:#02884d"></span></a>
+                <a asp-action="Details" asp-route-id="@item.ID"><span class="glyphicon glyphicon-search" style="color:#02884d"></span></a>
+                <a asp-action="Delete" asp-route-id="@item.ID"><span class="glyphicon glyphicon-remove" style="color:#02884d"></span></a>
+            }
+        </div>
+        @foreach(var comentario in item.Comentarios)
+        {
+            @Html.DisplayFor(modelItem => comentario.Usuario.Nome)
+            @Html.DisplayFor(modelItem => comentario.Data)
+            @Html.DisplayFor(modelItem => comentario.Descricao)
+            <a asp-action="DeletarComentario" asp-route-id="@comentario.ID"><span class="glyphicon glyphicon-remove" style="color:#02884d"></span></a>
+            <br />
+        }
+        <form asp-action="Comentar" asp-controller="Publicacao" method="put" asp-route-id="@item.ID"><input name="content" type="text" class="form-control" required></form>
+</div>
+    <hr>
 }
 </div>

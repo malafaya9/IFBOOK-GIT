@@ -34,6 +34,7 @@ namespace IFBOOK.Controllers
             }
             return RedirectToAction("Index");
         }
+
         // GET: Publicacao
         public async Task<IActionResult> Index()
         {
@@ -79,7 +80,8 @@ namespace IFBOOK.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(publicacao);
+            ViewData["PublicacaoError"] = "Publicação Inválida";
+            return RedirectToAction("Index");
         }
 
         // GET: Publicacao/Edit/5
@@ -160,7 +162,13 @@ namespace IFBOOK.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-
+        public async Task<IActionResult> DeletarComentario(int id)
+        {
+            var comentario = await _context.Comentarios.SingleOrDefaultAsync(m => m.ID == id);
+            _context.Comentarios.Remove(comentario);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
         private bool PublicacaoExists(int id)
         {
             return _context.Publicacoes.Any(e => e.ID == id);
