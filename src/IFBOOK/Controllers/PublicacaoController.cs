@@ -23,7 +23,17 @@ namespace IFBOOK.Controllers
             _context = context;
             _userManager = userManager;
         }
-
+        public async Task<IActionResult> Comentar(int id, string content)
+        {
+            Comentario comment = new Comentario() { PublicacaoID = id, Data = DateTime.Now, UsuarioID = _userManager.GetUserId(User), Descricao = content };
+            if (ModelState.IsValid)
+            {
+                _context.Add(comment);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+        }
         // GET: Publicacao
         public async Task<IActionResult> Index()
         {
