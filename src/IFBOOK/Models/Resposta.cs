@@ -19,6 +19,7 @@ namespace IFBOOK.Models
         [Column(TypeName = "datetime2")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [DataType(DataType.DateTime)]
+        [DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = "{0:dd/MM/yyyy HH:mm}")]
         public DateTime Data { get; set; }
 
         public string UsuarioID { get; set; }

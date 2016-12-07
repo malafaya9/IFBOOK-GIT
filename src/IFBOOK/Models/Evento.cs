@@ -19,6 +19,7 @@ namespace IFBOOK.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required(ErrorMessage = "O campo não pode ser vazio")]
         [DataType(DataType.DateTime)]
+        [DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = "{0:dd/MM/yyyy HH:mm}")]
         public DateTime Data { get; set; }
         public Boolean Status { get; set; }
         [Display(Name = "Usuário")]

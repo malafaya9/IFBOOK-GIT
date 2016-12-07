@@ -29,11 +29,11 @@ namespace IFBOOK.Models
 
         public ICollection<Publicacao> Publicacoes { get; set; }
 
-        public IEnumerable<Avaliacao> Avaliacoes { get; set; }
+        public ICollection<Avaliacao> Avaliacoes { get; set; }
 
-        public IEnumerable<Pergunta> Perguntas { get; set; }
+        public ICollection<Pergunta> Perguntas { get; set; }
 
-        public IEnumerable<Resposta> Respostas { get; set; }
+        public ICollection<Resposta> Respostas { get; set; }
 
         public ICollection<Comentario> Comentarios { get; set; }
 

@@ -1,4 +1,5 @@
 @model IEnumerable<IFBOOK.Models.Evento>
+@inject UserManager<ApplicationUser> _userManager
 
 @{
     ViewData["Title"] = "Eventos";
@@ -28,7 +29,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Where(i => i.Data>DateTime.Now && (i.Status||User.IsInRole("Administrador")||_userManager.GetUserId(User)==i.UsuarioID))) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Data)
@@ -38,6 +39,8 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.GetStatus)
+                @if (User.IsInRole("Administrador"))
+                {<span>(</span><a asp-controller="Evento" asp-action="AlterarStatus" asp-route-id="@item.ID" class="@(!item.Status ? "glyphicon glyphicon-ok" : "glyphicon glyphicon-remove")"></a><span>)</span>}
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Usuario.Nome)

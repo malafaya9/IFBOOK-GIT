@@ -7,40 +7,31 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IFBOOK.Data;
 using IFBOOK.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace IFBOOK.Controllers
 {
     [Authorize]
-    public class EventoController : Controller
+    public class PerguntaController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public EventoController(ApplicationDbContext context, UserManager<ApplicationUser> userManager )
+        public PerguntaController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
-            _userManager = userManager;
+            _userManager = userManager;    
         }
 
-        // GET: Evento
+        // GET: Pergunta
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Eventos.Include(e => e.Usuario);
-            return View(await applicationDbContext.OrderBy(i => i.Data).ToListAsync());
+            var applicationDbContext = _context.Perguntas.Include(p => p.Curso).Include(p => p.Usuario);
+            return View(await applicationDbContext.ToListAsync());
         }
 
-        public async Task<IActionResult> AlterarStatus(int id)
-        {
-            var e = _context.Eventos.FirstOrDefault(c => c.ID == id);
-            e.Status = !e.Status;
-            _context.Update(e);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-
-        // GET: Evento/Details/5
+        // GET: Pergunta/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -48,40 +39,41 @@ namespace IFBOOK.Controllers
                 return NotFound();
             }
 
-            var evento = await _context.Eventos.Include(e => e.Usuario).SingleOrDefaultAsync(m => m.ID == id);
-            if (evento == null)
+            var pergunta = await _context.Perguntas.SingleOrDefaultAsync(m => m.ID == id);
+            if (pergunta == null)
             {
                 return NotFound();
             }
 
-            return View(evento);
+            return View(pergunta);
         }
 
-        // GET: Evento/Create
+        // GET: Pergunta/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Evento/Create
+        // POST: Pergunta/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Data,Nome,Status,UsuarioID")] Evento evento)
+        public async Task<IActionResult> Create([Bind("ID,CursoID,Data,Descricao,Status,UsuarioID")] Pergunta pergunta)
         {
-            evento.UsuarioID = _userManager.GetUserId(HttpContext.User);
-            evento.Status = false;
+            pergunta.UsuarioID = _userManager.GetUserId(HttpContext.User);
+            pergunta.CursoID = (await _userManager.GetUserAsync(HttpContext.User)).CursoID;
+            pergunta.Data=DateTime.Now;
             if (ModelState.IsValid)
             {
-                _context.Add(evento);
+                _context.Add(pergunta);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(evento);
+            return View(pergunta);
         }
 
-        // GET: Evento/Edit/5
+        // GET: Pergunta/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -89,22 +81,22 @@ namespace IFBOOK.Controllers
                 return NotFound();
             }
 
-            var evento = await _context.Eventos.Include(e => e.Usuario).SingleOrDefaultAsync(m => m.ID == id);
-            if (evento == null)
+            var pergunta = await _context.Perguntas.SingleOrDefaultAsync(m => m.ID == id);
+            if (pergunta == null)
             {
                 return NotFound();
             }
-            return View(evento);
+            return View(pergunta);
         }
 
-        // POST: Evento/Edit/5
+        // POST: Pergunta/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Data,Nome,Status,UsuarioID")] Evento evento)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,CursoID,Data,Descricao,Status,UsuarioID")] Pergunta pergunta)
         {
-            if (id != evento.ID)
+            if (id != pergunta.ID)
             {
                 return NotFound();
             }
@@ -113,12 +105,12 @@ namespace IFBOOK.Controllers
             {
                 try
                 {
-                    _context.Update(evento);
+                    _context.Update(pergunta);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EventoExists(evento.ID))
+                    if (!PerguntaExists(pergunta.ID))
                     {
                         return NotFound();
                     }
@@ -129,10 +121,10 @@ namespace IFBOOK.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            return View(evento);
+            return View(pergunta);
         }
 
-        // GET: Evento/Delete/5
+        // GET: Pergunta/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -140,29 +132,29 @@ namespace IFBOOK.Controllers
                 return NotFound();
             }
 
-            var evento = await _context.Eventos.SingleOrDefaultAsync(m => m.ID == id);
-            if (evento == null)
+            var pergunta = await _context.Perguntas.SingleOrDefaultAsync(m => m.ID == id);
+            if (pergunta == null)
             {
                 return NotFound();
             }
 
-            return View(evento);
+            return View(pergunta);
         }
 
-        // POST: Evento/Delete/5
+        // POST: Pergunta/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var evento = await _context.Eventos.SingleOrDefaultAsync(m => m.ID == id);
-            _context.Eventos.Remove(evento);
+            var pergunta = await _context.Perguntas.SingleOrDefaultAsync(m => m.ID == id);
+            _context.Perguntas.Remove(pergunta);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
-        private bool EventoExists(int id)
+        private bool PerguntaExists(int id)
         {
-            return _context.Eventos.Any(e => e.ID == id);
+            return _context.Perguntas.Any(e => e.ID == id);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace IFBOOK.Models
         [DataType(DataType.DateTime)]
         public DateTime Data { get; set; }
         [Required]
-        public Boolean Status { get; set; }
+        public bool Status => !Resposta.Equals(null);
 
         public string UsuarioID { get; set; }
         public ApplicationUser Usuario { get; set; }
