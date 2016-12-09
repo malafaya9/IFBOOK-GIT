@@ -20,7 +20,7 @@ namespace IFBOOK.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [DataType(DataType.DateTime)]
         public DateTime Data { get; set; }
-        [Required]
+        [NotMapped]
         public bool Status => !(Resposta==null);
 
         public string UsuarioID { get; set; }

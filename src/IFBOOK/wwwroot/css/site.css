@@ -223,3 +223,27 @@ label.control-label.segundo{
 .ifbook-green{
     color: #02884d;
 }
+
+/* Equipe */
+
+figure{
+	width: 25.708%;
+	float: left;
+}
+
+figcaption{
+	font-family: bebas;
+	font-size: 25pt;
+	text-align: center;
+}
+
+.foto-adm{
+	margin-left: 45px;
+	border: solid 4px #2a8751;
+	border-radius: 150px;
+	transition: .6s;
+}
+
+.foto-adm:hover{
+	transform: scale(1.3);
+}

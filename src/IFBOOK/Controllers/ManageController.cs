@@ -35,6 +35,10 @@ namespace IFBOOK.Controllers
             _logger = loggerFactory.CreateLogger<ManageController>();
         }
 
+        public IActionResult Equipe()
+        {
+            return View();
+        }
         //
         // GET: /Manage/Index
         [HttpGet]
