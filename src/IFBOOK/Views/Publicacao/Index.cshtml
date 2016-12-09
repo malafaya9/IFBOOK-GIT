@@ -27,28 +27,27 @@
 @foreach (var item in Model) { 
     
     <div class="marcosAdriano col-md-8">
-        <div class="marcosAdriano1 col-md-2">
+        <div class="marcosAdriano1 text-center col-md-2">
             <img src="~/images/default-avatar.png" class="img-post" style="width:81px" />
+            @if ((UserManager.GetUserId(User) == item.UsuarioID) || User.IsInRole("Administrador"))
+            {
+                <a asp-action="Edit" asp-route-id="@item.ID"><span class="glyphicon glyphicon-edit" style="color:#02884d"></span></a>
+                <a asp-action="Delete" asp-route-id="@item.ID"><span class="glyphicon glyphicon-remove" style="color:#02884d"></span></a>
+            }
         </div>
         <div class="marcosAdriano2 col-md-10">
             <span class="name-post">@Html.DisplayFor(modelItem => item.Usuario.Nome)</span><br>
             <small class="date-post">@Html.DisplayFor(modelItem => item.Data)</small><br>
             <span class="post">@Html.DisplayFor(modelItem => item.Descricao)</span><br><br>
-            @if ((UserManager.GetUserId(User) == item.UsuarioID) || User.IsInRole("Administrador"))
-            {
-                <a asp-action="Edit" asp-route-id="@item.ID"><span class="glyphicon glyphicon-edit" style="color:#02884d"></span></a>
-                <a asp-action="Details" asp-route-id="@item.ID"><span class="glyphicon glyphicon-search" style="color:#02884d"></span></a>
-                <a asp-action="Delete" asp-route-id="@item.ID"><span class="glyphicon glyphicon-remove" style="color:#02884d"></span></a>
-            }
             <br>
             @foreach (var comentario in item.Comentarios.OrderBy(c => c.Data))
             {
-                <strong>@Html.DisplayFor(modelItem => comentario.Usuario.Nome)<span>(</span>@Html.DisplayFor(modelItem => comentario.Data)<span>):</span></strong>@Html.DisplayFor(modelItem => comentario.Descricao)
+                <strong>@Html.DisplayFor(modelItem => comentario.Usuario.Nome)<small><span>(</span>@Html.DisplayFor(modelItem => comentario.Data)<span>)</span></small>:</strong>@Html.DisplayFor(modelItem => comentario.Descricao)
                 @if(User.IsInRole("Administrador") || UserManager.GetUserId(User) == comentario.UsuarioID)
                 {<a asp-action="DeletarComentario" asp-route-id="@comentario.ID"><span class="glyphicon glyphicon-remove" style="color:#02884d"></span></a>}
                 <br />
             }
-            <form asp-action="Comentar" asp-controller="Publicacao" method="put" asp-route-id="@item.ID"><input name="content" type="text" class="form-control" required></form>
+            <form asp-action="Comentar" asp-controller="Publicacao" method="put" asp-route-id="@item.ID"><input name="content" placeholder="Comente algo Please :)" type="text" class="form-control" required></form>
         </div>
         <hr>  
 </div>

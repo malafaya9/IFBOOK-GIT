@@ -27,9 +27,10 @@
             <td>@Html.DisplayFor(model => item.Disciplina.Nome)</td>
             <td>@Html.DisplayFor(model => item.Professor.Nome)</td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=$"{item.DisciplinaID}@{item.ProfessorID}" }) |
+                @Html.ActionLink("Edit", "Edit", new { id = $"{item.DisciplinaID}@{item.ProfessorID}" }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @{ var idItem = $"{item.ProfessorID}@{item.DisciplinaID}"; }
+                @Html.ActionLink("Delete", "Delete", new { id=idItem })
             </td>
         </tr>
 }

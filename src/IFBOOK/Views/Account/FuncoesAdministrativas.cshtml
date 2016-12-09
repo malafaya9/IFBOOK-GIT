@@ -21,6 +21,7 @@
             </th>
             <th>Adiministrador</th>
             <th>Veterano</th>
+            @*<th>Excluir</th>*@
         </tr>
     </thead>
     <tbody>
@@ -37,12 +38,13 @@
             </td>
             <td>
                 @{ bool test = userManager.IsInRoleAsync(item, "Administrador").Result; }
-                <a asp-controller="Account" asp-action="AddRemoveRoles" asp-route-id="@item.Id" asp-route-role="Administrador">@(test?"Desativar":"Ativar")</a>
+                <a asp-controller="Account" asp-action="AddRemoveRoles" asp-route-id="@item.Id" asp-route-role="Administrador" class="ifbook-green">@(test?"Desativar":"Ativar")</a>
             </td>
             <td>
                 @{ test = userManager.IsInRoleAsync(item, "Veterano").Result; }
-                <a asp-controller="Account" asp-action="AddRemoveRoles" asp-route-id="@item.Id" asp-route-role="Veterano">@(test ? "Desativar" : "Ativar")</a>
+                <a asp-controller="Account" asp-action="AddRemoveRoles" asp-route-id="@item.Id" asp-route-role="Veterano" class="ifbook-green">@(test ? "Desativar" : "Ativar")</a>
             </td>
+            @*<td><a asp-controller="Account" asp-action="DeletarUsuario" asp-route-id="@item.Id" asp-route-role="Veterano" class="glyphicon glyphicon-remove text-center ifbook-green"></a></td>*@
         </tr>
 }
     </tbody>

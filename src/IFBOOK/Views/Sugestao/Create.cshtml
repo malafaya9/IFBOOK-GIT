@@ -10,14 +10,14 @@
     <div class="form-horizontal">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
-            <div class="col-md-10">
-                <textarea asp-for="Descricao" class="form-control col-md-10"></textarea>
+            <div class="col-md-12 col-md-offset-1">
+                <textarea asp-for="Descricao" class="form-control col-md-10" style="min-width:90%;height:300px;margin:auto;"></textarea>
                 <span asp-validation-for="Descricao" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Enviar" class="btn btn-success" />
+            <div class="col-md-offset-9 col-md-2">
+                <input type="submit" value="Enviar" class="btn btn-success" style="width:100%;">
             </div>
         </div>
     </div>

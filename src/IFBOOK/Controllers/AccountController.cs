@@ -86,7 +86,20 @@ namespace IFBOOK.Controllers
             return RedirectToAction("FuncoesAdministrativas");
 
         }
-
+        [Authorize(Roles = "Administrador")]
+        public async Task<IActionResult> DeletarUsuario(string id)
+        {
+            var user = _context.ApplicationUser.FirstOrDefault(u => u.Id == id);
+            if(user.Respostas!=null)_context.Respostas.RemoveRange(user.Respostas);
+            if (user.Perguntas != null)_context.Perguntas.RemoveRange(user.Perguntas);
+            if (user.Eventos != null)_context.Eventos.RemoveRange(user.Eventos);
+            if (user.Comentarios != null)_context.Comentarios.RemoveRange(user.Comentarios);
+            if (user.Avaliacoes != null)_context.Avaliacoes.RemoveRange(user.Avaliacoes);
+            if (user.Avaliacoes != null)_context.Publicacoes.RemoveRange(user.Publicacoes);
+            await _context.SaveChangesAsync();
+            await _userManager.DeleteAsync(user);
+            return RedirectToAction("FuncoesAdministrativas");
+        }
         //
         // GET: /Account/Login
         [HttpGet]

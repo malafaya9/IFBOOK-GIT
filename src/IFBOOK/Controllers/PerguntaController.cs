@@ -59,7 +59,7 @@ namespace IFBOOK.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,CursoID,Data,Descricao,Status,UsuarioID")] Pergunta pergunta)
+        public async Task<IActionResult> Create([Bind("ID,CursoID,Data,Descricao,UsuarioID")] Pergunta pergunta)
         {
             pergunta.UsuarioID = _userManager.GetUserId(HttpContext.User);
             pergunta.CursoID = (await _userManager.GetUserAsync(HttpContext.User)).CursoID;
@@ -94,7 +94,7 @@ namespace IFBOOK.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,CursoID,Data,Descricao,Status,UsuarioID")] Pergunta pergunta)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,CursoID,Data,Descricao,UsuarioID")] Pergunta pergunta)
         {
             if (id != pergunta.ID)
             {

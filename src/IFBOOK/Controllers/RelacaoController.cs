@@ -125,14 +125,15 @@ namespace IFBOOK.Controllers
         }
 
         // GET: Relacao/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string id)
         {
-            if (id == null)
+            string[] idS = id.Split('@');
+            if (idS == null)
             {
                 return NotFound();
             }
 
-            var professorDisciplina = await _context.ProfessorDisciplina.SingleOrDefaultAsync(m => m.ProfessorID == id);
+            var professorDisciplina = await _context.ProfessorDisciplina.SingleOrDefaultAsync(m => m.ProfessorID == int.Parse(idS[0]) && m.DisciplinaID == int.Parse(idS[1]));
             if (professorDisciplina == null)
             {
                 return NotFound();
@@ -144,9 +145,10 @@ namespace IFBOOK.Controllers
         // POST: Relacao/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var professorDisciplina = await _context.ProfessorDisciplina.SingleOrDefaultAsync(m => m.ProfessorID == id);
+            string[] idS = id.Split('@');
+            var professorDisciplina = await _context.ProfessorDisciplina.SingleOrDefaultAsync(m => m.ProfessorID == int.Parse(idS[0]) && m.DisciplinaID == int.Parse(idS[1]));
             _context.ProfessorDisciplina.Remove(professorDisciplina);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
