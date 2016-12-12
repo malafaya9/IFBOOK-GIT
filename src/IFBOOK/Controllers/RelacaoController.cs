@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IFBOOK.Data;
 using IFBOOK.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IFBOOK.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class RelacaoController : Controller
     {
         private readonly ApplicationDbContext _context;

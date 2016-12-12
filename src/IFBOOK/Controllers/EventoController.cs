@@ -30,7 +30,7 @@ namespace IFBOOK.Controllers
             var applicationDbContext = _context.Eventos.Include(e => e.Usuario);
             return View(await applicationDbContext.OrderBy(i => i.Data).ToListAsync());
         }
-
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> AlterarStatus(int id)
         {
             var e = _context.Eventos.FirstOrDefault(c => c.ID == id);

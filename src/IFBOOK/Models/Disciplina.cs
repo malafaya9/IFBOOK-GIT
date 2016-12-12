@@ -16,7 +16,7 @@ namespace IFBOOK.Models
         [MaxLength(100)]
         public string Nome { get; set; }
         [NotMapped]
-        public float? Nota => (float?)Avaliacoes?.Average(a => a.Nota) ?? -1;
+        public float? Nota => Avaliacoes?.Any() ?? false ? (float)Avaliacoes.Average(a => a.Nota) : -1;
         public ICollection<Avaliacao> Avaliacoes { get; set; }
     }
 }

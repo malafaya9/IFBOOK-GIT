@@ -13,6 +13,7 @@ using IFBOOK.Models.AccountViewModels;
 using IFBOOK.Services;
 using IFBOOK.Data;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace IFBOOK.Controllers
 {
@@ -61,9 +62,7 @@ namespace IFBOOK.Controllers
         [Authorize(Roles = "Administrador")]
         public IActionResult FuncoesAdministrativas()
         {
-#pragma warning disable CS1702 // Assuming assembly reference matches identity
-            return View(_context.Users.ToList());
-#pragma warning restore CS1702 // Assuming assembly reference matches identity
+            return View(_context.Users.Include(u => u.Curso).OrderBy(u => u.Matricula).ToList());
         }
         [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> AddRemoveRoles(string id, string role)

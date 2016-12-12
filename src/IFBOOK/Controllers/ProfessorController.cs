@@ -35,7 +35,7 @@ namespace IFBOOK.Controllers
                 return NotFound();
             }
 
-            var professor = await _context.Professores.SingleOrDefaultAsync(m => m.ID == id);
+            var professor = await _context.Professores.Include(p => p.Avaliacoes).Include(p => p.ProfessorDisciplina).ThenInclude(pd => pd.Disciplina).SingleOrDefaultAsync(m => m.ID == id);
             if (professor == null)
             {
                 return NotFound();
@@ -43,13 +43,13 @@ namespace IFBOOK.Controllers
 
             return View(professor);
         }
-
+        [Authorize(Roles = "Administrador")]
         // GET: Professor/Create
         public IActionResult Create()
         {
             return View();
         }
-
+        [Authorize(Roles = "Administrador")]
         // POST: Professor/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -65,7 +65,7 @@ namespace IFBOOK.Controllers
             }
             return View(professor);
         }
-
+        [Authorize(Roles = "Administrador")]
         // GET: Professor/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -81,7 +81,7 @@ namespace IFBOOK.Controllers
             }
             return View(professor);
         }
-
+        [Authorize(Roles = "Administrador")]
         // POST: Professor/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -116,7 +116,7 @@ namespace IFBOOK.Controllers
             }
             return View(professor);
         }
-
+        [Authorize(Roles = "Administrador")]
         // GET: Professor/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -133,7 +133,7 @@ namespace IFBOOK.Controllers
 
             return View(professor);
         }
-
+        [Authorize(Roles = "Administrador")]
         // POST: Professor/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

@@ -5,13 +5,13 @@
     ViewData["Title"] = "Funcoes Administrativas";
 }
 
-<h2>FuncoesAdministrativas</h2>
+<h2>Gerenciar Perfis</h2>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                @Html.DisplayNameFor(model => model.Curso)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Matricula)
@@ -28,7 +28,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                @Html.DisplayFor(modelItem => item.Curso.Nome)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Matricula)

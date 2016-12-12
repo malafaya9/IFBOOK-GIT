@@ -1,13 +1,13 @@
 @model IEnumerable<IFBOOK.Models.ProfessorDisciplina>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Relacionamentos";
 }
 
-<h2>Index</h2>
+<h2>Relacionamentos</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="ifbook-button">Cadastrar novo Relacionamento</a>
 </p>
 <table class="table">
     <thead>
@@ -27,9 +27,9 @@
             <td>@Html.DisplayFor(model => item.Disciplina.Nome)</td>
             <td>@Html.DisplayFor(model => item.Professor.Nome)</td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = $"{item.DisciplinaID}@{item.ProfessorID}" }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @{ var idItem = $"{item.ProfessorID}@{item.DisciplinaID}"; }
+                @Html.ActionLink("Edit", "Edit", new { id = idItem }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { id=idItem })
             </td>
         </tr>

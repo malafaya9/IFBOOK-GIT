@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace IFBOOK.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrador")]
     public class CursoController : Controller
     {
         private readonly ApplicationDbContext _context;

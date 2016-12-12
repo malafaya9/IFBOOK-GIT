@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IFBOOK.Data;
 using IFBOOK.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IFBOOK.Controllers
 {
+    [Authorize]
     public class DisciplinaController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -33,7 +35,7 @@ namespace IFBOOK.Controllers
                 return NotFound();
             }
 
-            var disciplina = await _context.Disciplinas.SingleOrDefaultAsync(m => m.ID == id);
+            var disciplina = await _context.Disciplinas.Include(d => d.Avaliacoes).Include(d => d.ProfessorDisciplina).ThenInclude(pd => pd.Professor).SingleOrDefaultAsync(m => m.ID == id);
             if (disciplina == null)
             {
                 return NotFound();
@@ -41,13 +43,13 @@ namespace IFBOOK.Controllers
 
             return View(disciplina);
         }
-
+        [Authorize(Roles = "Administrador")]
         // GET: Disciplina/Create
         public IActionResult Create()
         {
             return View();
         }
-
+        [Authorize(Roles = "Administrador")]
         // POST: Disciplina/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -63,7 +65,7 @@ namespace IFBOOK.Controllers
             }
             return View(disciplina);
         }
-
+        [Authorize(Roles = "Administrador")]
         // GET: Disciplina/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -79,7 +81,7 @@ namespace IFBOOK.Controllers
             }
             return View(disciplina);
         }
-
+        [Authorize(Roles = "Administrador")]
         // POST: Disciplina/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -114,7 +116,7 @@ namespace IFBOOK.Controllers
             }
             return View(disciplina);
         }
-
+        [Authorize(Roles = "Administrador")]
         // GET: Disciplina/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -131,7 +133,7 @@ namespace IFBOOK.Controllers
 
             return View(disciplina);
         }
-
+        [Authorize(Roles = "Administrador")]
         // POST: Disciplina/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

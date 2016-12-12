@@ -27,8 +27,22 @@ namespace IFBOOK.Controllers
         // GET: Pergunta
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Perguntas.Include(p => p.Curso).Include(p => p.Usuario);
+            var applicationDbContext = _context.Perguntas.Include(p => p.Curso).Include(p => p.Usuario).Include(p => p.Resposta);
             return View(await applicationDbContext.ToListAsync());
+        }
+        [Authorize(Roles = "Veterano")]
+        public async Task<IActionResult> Responder(int id, string Descricao)
+        {
+            var Resposta = new Resposta()
+            {
+                Data = DateTime.Now,
+                UsuarioID = _userManager.GetUserId(User),
+                PerguntaID = id
+            };
+            Resposta.Descricao = Descricao;
+            _context.Respostas.Add(Resposta);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
 
         // GET: Pergunta/Details/5

@@ -1,24 +1,33 @@
 @model IFBOOK.Models.Professor
 
 @{
-    ViewData["Title"] = "Detalhes";
+    ViewData["Title"] = "Avaliar Professor";
 }
 
-<h2>Detalhes</h2>
+<h2>Avaliar Professor</h2>
 
 <div>
-    <h4>Professor</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-        <dd>
+    <div class="row ifbook-green-bebas" style="font-size:3em;">
+        <p class="col-md-8 col-md-offset-2">
+            @Html.DisplayNameFor(model => model.Nome):
             @Html.DisplayFor(model => model.Nome)
-        </dd>
-    </dl>
+        </p>
+        <p class="col-md-8 col-md-offset-2">
+            @Html.DisplayNameFor(model => model.Nota):
+            @if (Model.Nota != -1)
+            {
+                @Model.Nota
+            }
+            else
+            {
+                <span>Ainda não houve Avaliações</span>
+            }
+        </p>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Editar</a> |
-    <a asp-action="Index">Voltar para a Lista</a>
+<div class="col-md-8 col-md-offset-2">
+    @if (User.IsInRole("Administrador"))
+    {<a asp-action="Edit" asp-route-id="@Model.ID" class="ifbook-button" style="margin:2px;">Editar</a>}
+    <a asp-action="Index" class="ifbook-button" style="margin:2px;">Voltar para a Lista</a>
 </div>
