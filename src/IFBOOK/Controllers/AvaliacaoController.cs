@@ -46,9 +46,9 @@ namespace IFBOOK.Controllers
                 avaliacao.DisciplinaID = ratedId;
             }
             if (!_context.Avaliacoes.Any(a => a.UsuarioID == avaliacao.UsuarioID && a.DisciplinaID == avaliacao.DisciplinaID && a.ProfessorID == avaliacao.ProfessorID)) _context.Add(avaliacao);
-            else _context.Update(avaliacao);
+            else _context.Avaliacoes.Update(avaliacao);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Details", (Tipo=='P'?"Professor":"Disciplina"));
+            return RedirectToAction("Details", (Tipo=='P'?"Professor":"Disciplina"),new { id = ratedId });
         }
         [Authorize(Roles ="Administrador")]
         // GET: Avaliacao/Delete/5

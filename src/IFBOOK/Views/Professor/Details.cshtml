@@ -1,11 +1,12 @@
 @model IFBOOK.Models.Professor
-
+@using IFBOOK.Data
+@inject ApplicationDbContext _context
+@inject UserManager<ApplicationUser> _userManager
 @{
     ViewData["Title"] = "Avaliar Professor";
 }
 
 <h2>Avaliar Professor</h2>
-
 <div>
     <hr />
     <div class="row ifbook-green-bebas" style="font-size:3em;">
@@ -25,8 +26,25 @@
             }
         </p>
     </div>
+    @{
+        var ID = $"P{Model.ID}";
+    }
+    <div>
+        @if (!_context.Avaliacoes.Any(a => a.ProfessorID == Model.ID && a.UsuarioID == _userManager.GetUserId(User)))
+        {
+        <form class="col-md-8 col-md-offset-2 form-inline" asp-controller="Avaliacao" asp-action="Avaliar" id="target" style="font-size:1em;margin-bottom:2px;" asp-route-id="@ID">
+            <input type="number" class="form-control text-center" name="Nota" value="1" min="0" max="5" step="1">
+            <input type="submit" value="Avaliar" style="height:auto" class="btn btn-success">
+        </form>
+        }
+        else
+        {
+            <span class="alert alert-success col-md-8 col-md-offset-2">Professor Avaliado</span>
+        }
+    </div>
 </div>
-<div class="col-md-8 col-md-offset-2">
+<br>
+<div class="col-md-8 col-md-offset-2" style="margin-top:6px;">
     @if (User.IsInRole("Administrador"))
     {<a asp-action="Edit" asp-route-id="@Model.ID" class="ifbook-button" style="margin:2px;">Editar</a>}
     <a asp-action="Index" class="ifbook-button" style="margin:2px;">Voltar para a Lista</a>
