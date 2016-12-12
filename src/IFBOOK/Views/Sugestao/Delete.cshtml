@@ -1,14 +1,14 @@
 @model IFBOOK.Models.Sugestao
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Excluir";
 }
 
-<h2>Delete</h2>
+<h2>Excluir</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Realmente deseja excluir isso?</h3>
 <div>
-    <h4>Sugestao</h4>
+    <h4>Sugestão</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -21,8 +21,8 @@
     
     <form asp-action="Delete">
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            <a asp-action="Index">Back to List</a>
+            <input type="submit" value="Excluir" class="btn btn-success" />
+            <a asp-action="Index" class="ifbook-button">Voltar para a lista</a>
         </div>
     </form>
 </div>

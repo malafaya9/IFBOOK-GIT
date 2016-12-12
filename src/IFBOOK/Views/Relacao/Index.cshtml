@@ -28,9 +28,7 @@
             <td>@Html.DisplayFor(model => item.Professor.Nome)</td>
             <td>
                 @{ var idItem = $"{item.ProfessorID}@{item.DisciplinaID}"; }
-                @Html.ActionLink("Edit", "Edit", new { id = idItem }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { id=idItem })
+                <a asp-action="Delete" asp-route-id="@idItem" class="glyphicon glyphicon-remove ifbook-green"></a>
             </td>
         </tr>
 }
